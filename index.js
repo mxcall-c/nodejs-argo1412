@@ -6,25 +6,25 @@ const fs = require("fs");
 const path = require("path");
 const { promisify } = require('util');
 const exec = promisify(require('child_process').exec);
-const { execSync } = require('child_process');        // 鍙～鍐橴PLOAD_URL灏嗕笂浼犺妭鐐�,鍚屾椂濉啓UPLOAD_URL鍜孭ROJECT_URL灏嗕笂浼犺闃�
-const UPLOAD_URL = process.env.UPLOAD_URL || '';      // 鑺傜偣鎴栬闃呰嚜鍔ㄤ笂浼犲湴鍧€,闇€濉啓閮ㄧ讲Merge-sub椤圭洰鍚庣殑棣栭〉鍦板潃,渚嬪锛歨ttps://merge.xxx.com
-const PROJECT_URL = process.env.PROJECT_URL || '';    // 闇€瑕佷笂浼犺闃呮垨淇濇椿鏃堕渶濉啓椤圭洰鍒嗛厤鐨剈rl,渚嬪锛歨ttps://google.com
-const AUTO_ACCESS = process.env.AUTO_ACCESS || false; // false鍏抽棴鑷姩淇濇椿锛宼rue寮€鍚�,闇€鍚屾椂濉啓PROJECT_URL鍙橀噺
-const FILE_PATH = process.env.FILE_PATH || './tmp';   // 杩愯鐩綍,sub鑺傜偣鏂囦欢淇濆瓨鐩綍
+const { execSync } = require('child_process');        // 
+const UPLOAD_URL = process.env.UPLOAD_URL || '';      // 
+const PROJECT_URL = process.env.PROJECT_URL || '';    // 
+const AUTO_ACCESS = process.env.AUTO_ACCESS || false; // 
+const FILE_PATH = process.env.FILE_PATH || './tmp';   // 
 const SUB_PATH = process.env.SUB_PATH || 'sub1412';       //订阅路径
 const PORT = process.env.SERVER_PORT || process.env.PORT || 3000;        // 
 const UUID = process.env.UUID || '30d5210a-35ca-42d5-bb24-cce9a3fcf019'; //UUID
-const NEZHA_SERVER = process.env.NEZHA_SERVER || '';        // 鍝悞v1濉啓褰㈠紡: nz.abc.com:8008  鍝悞v0濉啓褰㈠紡锛歯z.abc.com
-const NEZHA_PORT = process.env.NEZHA_PORT || '';            // 浣跨敤鍝悞v1璇风暀绌猴紝鍝悞v0闇€濉啓
-const NEZHA_KEY = process.env.NEZHA_KEY || '';              // 鍝悞v1鐨凬Z_CLIENT_SECRET鎴栧摢鍚抳0鐨刟gent瀵嗛挜
-const ARGO_DOMAIN = process.env.ARGO_DOMAIN || '';          // 鍥哄畾闅ч亾鍩熷悕,鐣欑┖鍗冲惎鐢ㄤ复鏃堕毀閬�
-const ARGO_AUTH = process.env.ARGO_AUTH || '';              // 鍥哄畾闅ч亾瀵嗛挜json鎴杢oken,鐣欑┖鍗冲惎鐢ㄤ复鏃堕毀閬�,json鑾峰彇鍦板潃锛歨ttps://json.zone.id
-const ARGO_PORT = process.env.ARGO_PORT || 8001;            // 鍥哄畾闅ч亾绔彛,浣跨敤token闇€鍦╟loudflare鍚庡彴璁剧疆鍜岃繖閲屼竴鑷�
-const CFIP = process.env.CFIP || 'cdns.doon.eu.org';        // 鑺傜偣浼橀€夊煙鍚嶆垨浼橀€塱p  
-const CFPORT = process.env.CFPORT || 443;                   // 鑺傜偣浼橀€夊煙鍚嶆垨浼橀€塱p瀵瑰簲鐨勭鍙�
-const NAME = process.env.NAME || '';                        // 鑺傜偣鍚嶇О
+const NEZHA_SERVER = process.env.NEZHA_SERVER || '';        // 
+const NEZHA_PORT = process.env.NEZHA_PORT || '';            // 
+const NEZHA_KEY = process.env.NEZHA_KEY || '';              // 
+const ARGO_DOMAIN = process.env.ARGO_DOMAIN || 'mxcall1412';          // 隧道域名
+const ARGO_AUTH = process.env.ARGO_AUTH || '';              // 
+const ARGO_PORT = process.env.ARGO_PORT || 8001;            // 
+const CFIP = process.env.CFIP || 'cdns.doon.eu.org';        //  
+const CFPORT = process.env.CFPORT || 443;                   //
+const NAME = process.env.NAME || '';                        // 
 
-// 鍒涘缓杩愯鏂囦欢澶�
+// 
 if (!fs.existsSync(FILE_PATH)) {
   fs.mkdirSync(FILE_PATH);
   console.log(`${FILE_PATH} is created`);
@@ -32,7 +32,7 @@ if (!fs.existsSync(FILE_PATH)) {
   console.log(`${FILE_PATH} already exists`);
 }
 
-// 鐢熸垚闅忔満6浣嶅瓧绗︽枃浠跺悕
+// 
 function generateRandomName() {
   const characters = 'abcdefghijklmnopqrstuvwxyz';
   let result = '';
@@ -42,7 +42,7 @@ function generateRandomName() {
   return result;
 }
 
-// 鍏ㄥ眬甯搁噺
+// 
 const npmName = generateRandomName();
 const webName = generateRandomName();
 const botName = generateRandomName();
@@ -56,7 +56,7 @@ let listPath = path.join(FILE_PATH, 'list.txt');
 let bootLogPath = path.join(FILE_PATH, 'boot.log');
 let configPath = path.join(FILE_PATH, 'config.json');
 
-// 濡傛灉璁㈤槄鍣ㄤ笂瀛樺湪鍘嗗彶杩愯鑺傜偣鍒欏厛鍒犻櫎
+// 
 function deleteNodes() {
   try {
     if (!UPLOAD_URL) return;
@@ -88,7 +88,7 @@ function deleteNodes() {
   }
 }
 
-// 娓呯悊鍘嗗彶鏂囦欢
+// 
 function cleanupOldFiles() {
   try {
     const files = fs.readdirSync(FILE_PATH);
@@ -100,20 +100,20 @@ function cleanupOldFiles() {
           fs.unlinkSync(filePath);
         }
       } catch (err) {
-        // 蹇界暐鎵€鏈夐敊璇紝涓嶈褰曟棩蹇�
+        // 
       }
     });
   } catch (err) {
-    // 蹇界暐鎵€鏈夐敊璇紝涓嶈褰曟棩蹇�
+    // 
   }
 }
 
-// 鏍硅矾鐢�
+// 
 app.get("/", function(req, res) {
   res.send("Hello world!");
 });
 
-// 鐢熸垚xr-ay閰嶇疆鏂囦欢
+// 
 async function generateConfig() {
   const config = {
     log: { access: '/dev/null', error: '/dev/null', loglevel: 'none' },
@@ -130,7 +130,7 @@ async function generateConfig() {
   fs.writeFileSync(path.join(FILE_PATH, 'config.json'), JSON.stringify(config, null, 2));
 }
 
-// 鍒ゆ柇绯荤粺鏋舵瀯
+//
 function getSystemArchitecture() {
   const arch = os.arch();
   if (arch === 'arm' || arch === 'arm64' || arch === 'aarch64') {
@@ -140,11 +140,11 @@ function getSystemArchitecture() {
   }
 }
 
-// 涓嬭浇瀵瑰簲绯荤粺鏋舵瀯鐨勪緷璧栨枃浠�
+// 
 function downloadFile(fileName, fileUrl, callback) {
   const filePath = fileName; 
   
-  // 纭繚鐩綍瀛樺湪
+  // 
   if (!fs.existsSync(FILE_PATH)) {
     fs.mkdirSync(FILE_PATH, { recursive: true });
   }
@@ -168,18 +168,18 @@ function downloadFile(fileName, fileUrl, callback) {
       writer.on('error', err => {
         fs.unlink(filePath, () => { });
         const errorMessage = `Download ${path.basename(filePath)} failed: ${err.message}`;
-        console.error(errorMessage); // 涓嬭浇澶辫触鏃惰緭鍑洪敊璇秷鎭�
+        console.error(errorMessage); // 
         callback(errorMessage);
       });
     })
     .catch(err => {
       const errorMessage = `Download ${path.basename(filePath)} failed: ${err.message}`;
-      console.error(errorMessage); // 涓嬭浇澶辫触鏃惰緭鍑洪敊璇秷鎭�
+      console.error(errorMessage); // 
       callback(errorMessage);
     });
 }
 
-// 涓嬭浇骞惰繍琛屼緷璧栨枃浠�
+// 
 async function downloadFilesAndRun() {  
   
   const architecture = getSystemArchitecture();
@@ -208,7 +208,7 @@ async function downloadFilesAndRun() {
     console.error('Error downloading files:', err);
     return;
   }
-  // 鎺堟潈鍜岃繍琛�
+  // 
   function authorizeFiles(filePaths) {
     const newPermissions = 0o775;
     filePaths.forEach(absoluteFilePath => {
@@ -226,14 +226,14 @@ async function downloadFilesAndRun() {
   const filesToAuthorize = NEZHA_PORT ? [npmPath, webPath, botPath] : [phpPath, webPath, botPath];
   authorizeFiles(filesToAuthorize);
 
-  //杩愯ne-zha
+  //
   if (NEZHA_SERVER && NEZHA_KEY) {
     if (!NEZHA_PORT) {
-      // 妫€娴嬪摢鍚掓槸鍚﹀紑鍚疶LS
+      //
       const port = NEZHA_SERVER.includes(':') ? NEZHA_SERVER.split(':').pop() : '';
       const tlsPorts = new Set(['443', '8443', '2096', '2087', '2083', '2053']);
       const nezhatls = tlsPorts.has(port) ? 'true' : 'false';
-      // 鐢熸垚 config.yaml
+      // 
       const configYaml = `
 client_secret: ${NEZHA_KEY}
 debug: false
@@ -257,7 +257,7 @@ uuid: ${UUID}`;
       
       fs.writeFileSync(path.join(FILE_PATH, 'config.yaml'), configYaml);
       
-      // 杩愯 v1
+      // 
       const command = `nohup ${phpPath} -c "${FILE_PATH}/config.yaml" >/dev/null 2>&1 &`;
       try {
         await exec(command);
@@ -284,7 +284,7 @@ uuid: ${UUID}`;
   } else {
     console.log('NEZHA variable is empty,skip running');
   }
-  //杩愯xr-ay
+  //
   const command1 = `nohup ${webPath} -c ${FILE_PATH}/config.json >/dev/null 2>&1 &`;
   try {
     await exec(command1);
@@ -294,7 +294,7 @@ uuid: ${UUID}`;
     console.error(`web running error: ${error}`);
   }
 
-  // 杩愯cloud-fared
+  // 
   if (fs.existsSync(botPath)) {
     let args;
 
@@ -318,7 +318,7 @@ uuid: ${UUID}`;
 
 }
 
-//鏍规嵁绯荤粺鏋舵瀯杩斿洖瀵瑰簲鐨剈rl
+//
 function getFilesForArchitecture(architecture) {
   let baseFiles;
   if (architecture === 'arm') {
@@ -356,7 +356,7 @@ function getFilesForArchitecture(architecture) {
   return baseFiles;
 }
 
-// 鑾峰彇鍥哄畾闅ч亾json
+// 
 function argoType() {
   if (!ARGO_AUTH || !ARGO_DOMAIN) {
     console.log("ARGO_DOMAIN or ARGO_AUTH variable is empty, use quick tunnels");
@@ -383,7 +383,7 @@ function argoType() {
   }
 }
 
-// 鑾峰彇涓存椂闅ч亾domain
+// 
 async function extractDomains() {
   let argoDomain;
 
@@ -410,7 +410,7 @@ async function extractDomains() {
         await generateLinks(argoDomain);
       } else {
         console.log('ArgoDomain not found, re-running bot to obtain ArgoDomain');
-        // 鍒犻櫎 boot.log 鏂囦欢锛岀瓑寰� 2s 閲嶆柊杩愯 server 浠ヨ幏鍙� ArgoDomain
+        // 
         fs.unlinkSync(path.join(FILE_PATH, 'boot.log'));
         async function killBotProcess() {
           try {
@@ -420,7 +420,7 @@ async function extractDomains() {
               await exec(`pkill -f "[${botName.charAt(0)}]${botName.substring(1)}" > /dev/null 2>&1`);
             }
           } catch (error) {
-            // 蹇界暐杈撳嚭
+            //
           }
         }
         killBotProcess();
@@ -430,7 +430,7 @@ async function extractDomains() {
           await exec(`nohup ${botPath} ${args} >/dev/null 2>&1 &`);
           console.log(`${botName} is running`);
           await new Promise((resolve) => setTimeout(resolve, 3000));
-          await extractDomains(); // 閲嶆柊鎻愬彇鍩熷悕
+          await extractDomains(); // 
         } catch (error) {
           console.error(`Error executing command: ${error}`);
         }
@@ -440,7 +440,7 @@ async function extractDomains() {
   }
 }
 
-// 鑾峰彇isp淇℃伅
+// 
 async function getMetaInfo() {
   try {
     const response1 = await axios.get('https://ipapi.co/json/', { timeout: 3000 });
@@ -449,7 +449,7 @@ async function getMetaInfo() {
     }
   } catch (error) {
       try {
-        // 澶囩敤 ip-api.com 鑾峰彇isp
+        // 
         const response2 = await axios.get('http://ip-api.com/json/', { timeout: 3000 });
         if (response2.data && response2.data.status === 'success' && response2.data.countryCode && response2.data.org) {
           return `${response2.data.countryCode}_${response2.data.org}`;
@@ -460,7 +460,7 @@ async function getMetaInfo() {
   }
   return 'Unknown';
 }
-// 鐢熸垚 list 鍜� sub 淇℃伅
+// 
 async function generateLinks(argoDomain) {
   const ISP = await getMetaInfo();
   const nodeName = NAME ? `${NAME}-${ISP}` : ISP;
@@ -474,12 +474,12 @@ vmess://${Buffer.from(JSON.stringify(VMESS)).toString('base64')}
 
 trojan://${UUID}@${CFIP}:${CFPORT}?security=tls&sni=${argoDomain}&fp=firefox&type=ws&host=${argoDomain}&path=%2Ftrojan-argo%3Fed%3D2560#${nodeName}
     `;
-      // 鎵撳嵃 sub.txt 鍐呭鍒版帶鍒跺彴
+      // 
       console.log(Buffer.from(subTxt).toString('base64'));
       fs.writeFileSync(subPath, Buffer.from(subTxt).toString('base64'));
       console.log(`${FILE_PATH}/sub.txt saved successfully`);
       uploadNodes();
-      // 灏嗗唴瀹硅繘琛� base64 缂栫爜骞跺啓鍏� SUB_PATH 璺敱
+      //
       app.get(`/${SUB_PATH}`, (req, res) => {
         const encodedContent = Buffer.from(subTxt).toString('base64');
         res.set('Content-Type', 'text/plain; charset=utf-8');
@@ -491,7 +491,7 @@ trojan://${UUID}@${CFIP}:${CFPORT}?security=tls&sni=${argoDomain}&fp=firefox&typ
   }
 }
 
-// 鑷姩涓婁紶鑺傜偣鎴栬闃�
+// 
 async function uploadNodes() {
   if (UPLOAD_URL && PROJECT_URL) {
     const subscriptionUrl = `${PROJECT_URL}/${SUB_PATH}`;
@@ -547,7 +547,7 @@ async function uploadNodes() {
   }
 }
 
-// 90s鍚庡垹闄ょ浉鍏虫枃浠�
+// 
 function cleanFiles() {
   setTimeout(() => {
     const filesToDelete = [bootLogPath, configPath, webPath, botPath];  
@@ -558,7 +558,7 @@ function cleanFiles() {
       filesToDelete.push(phpPath);
     }
 
-    // Windows绯荤粺浣跨敤涓嶅悓鐨勫垹闄ゅ懡浠�
+    // 
     if (process.platform === 'win32') {
       exec(`del /f /q ${filesToDelete.join(' ')} > nul 2>&1`, (error) => {
         console.clear();
@@ -576,7 +576,7 @@ function cleanFiles() {
 }
 cleanFiles();
 
-// 鑷姩璁块棶椤圭洰URL
+// 
 async function AddVisitTask() {
   if (!AUTO_ACCESS || !PROJECT_URL) {
     console.log("Skipping adding automatic access task");
@@ -600,7 +600,7 @@ async function AddVisitTask() {
   }
 }
 
-// 涓昏繍琛岄€昏緫
+// 
 async function startserver() {
   try {
     argoType();
